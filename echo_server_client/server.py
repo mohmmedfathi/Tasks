@@ -33,6 +33,12 @@ def handle_client(client_socket, client_address):
 
 def start_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        # port stays busy a bit after a stop since tcp is not fully closed yet
+        server_socket.setsockopt(
+            socket.SOL_SOCKET,
+            socket.SO_REUSEADDR,
+            1
+        )
         server_socket.bind((HOST, PORT))
         server_socket.listen()
         print(f"server listening on {HOST}:{PORT}")
