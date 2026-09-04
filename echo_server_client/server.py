@@ -3,6 +3,10 @@ import threading
 
 from constants import HOST, PORT, BUFFER_SIZE
 
+# to close every client when stop the server and lock since many threads share it
+client_sockets = set()
+client_sockets_lock = threading.Lock()
+
 
 def handle_client(client_socket, client_address):
     print(f"client connected: {client_address}")
@@ -36,7 +40,11 @@ def handle_client(client_socket, client_address):
     except ConnectionError:
         print(f"connection lost: {client_address}")
 
-    print(f"client disconnected: {client_address}")
+    finally:
+        with client_sockets_lock:
+            client_sockets.discard(client_socket)
+
+        print(f"client disconnected: {client_address}")
 
 
 def start_server():
@@ -54,6 +62,10 @@ def start_server():
         try:
             while True:
                 client_socket, client_address = server_socket.accept()
+
+                # prevent race conditions while registering a new client
+                with client_sockets_lock:
+                    client_sockets.add(client_socket)
 
                 client_thread = threading.Thread(
                     target=handle_client,
