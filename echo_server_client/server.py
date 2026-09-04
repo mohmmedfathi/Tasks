@@ -1,6 +1,7 @@
 import socket
+import threading
 
-from constants import BUFFER_SIZE
+from constants import HOST, PORT, BUFFER_SIZE
 
 
 def handle_client(client_socket, client_address):
@@ -28,3 +29,27 @@ def handle_client(client_socket, client_address):
         print(f"connection lost: {client_address}")
 
     print(f"client disconnected: {client_address}")
+
+
+def start_server():
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        server_socket.bind((HOST, PORT))
+        server_socket.listen()
+        print(f"server listening on {HOST}:{PORT}")
+
+        try:
+            while True:
+                client_socket, client_address = server_socket.accept()
+
+                client_thread = threading.Thread(
+                    target=handle_client,
+                    args=(client_socket, client_address)
+                )
+                client_thread.start()
+
+        except KeyboardInterrupt:
+            print("\nserver stopped")
+
+
+if __name__ == "__main__":
+    start_server()
