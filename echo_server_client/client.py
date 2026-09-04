@@ -41,6 +41,9 @@ def start_client():
     except ConnectionError:
         print("connection with the server was lost")
 
+    except (KeyboardInterrupt, EOFError):
+        print("\nclosing connection")
+
     print("connection closed")
 
 
