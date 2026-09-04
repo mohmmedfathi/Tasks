@@ -47,6 +47,18 @@ def handle_client(client_socket, client_address):
         print(f"client disconnected: {client_address}")
 
 
+def close_all_clients():
+    # prevent the client set from changing while taking a shutdown snapshot
+    with client_sockets_lock:
+        sockets = list(client_sockets)
+
+    for client_socket in sockets:
+        try:
+            client_socket.shutdown(socket.SHUT_RDWR)
+        except OSError:
+            pass # thread already closed
+
+
 def start_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
         # port stays busy a bit after a stop since tcp is not fully closed yet
@@ -74,7 +86,11 @@ def start_server():
                 client_thread.start()
 
         except KeyboardInterrupt:
-            print("\nserver stopped")
+            print("\nserver stopping")
+
+        finally:
+            close_all_clients()
+            print("server stopped")
 
 
 if __name__ == "__main__":
