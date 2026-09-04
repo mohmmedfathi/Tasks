@@ -12,6 +12,10 @@ def start_client():
             while True:
                 message = input("enter message: ")
 
+                # sending 0 bytes would leave recv waiting forever
+                if not message.strip():
+                    continue
+
                 client_socket.sendall(message.encode("utf-8"))
 
                 if message.strip().lower() == "exit":
