@@ -27,7 +27,12 @@ def start_client():
                     print("server closed the connection")
                     break
 
-                message = data.decode("utf-8")
+                try:
+                    message = data.decode("utf-8")
+                except UnicodeDecodeError:
+                    print("server sent invalid utf-8 text")
+                    continue
+
                 print(f"server: {message}")
 
     except ConnectionRefusedError:

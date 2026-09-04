@@ -16,7 +16,15 @@ def handle_client(client_socket, client_address):
                 if not data:
                     break
 
-                message = data.decode("utf-8")
+                try:
+                    message = data.decode("utf-8")
+                except UnicodeDecodeError:
+                    print(f"invalid utf-8 from {client_address}")
+                    client_socket.sendall(
+                        "please send valid utf-8 text".encode("utf-8")
+                    )
+                    continue
+
                 print(f"received from {client_address}: {message}")
 
                 if message.strip().lower() == "exit":
