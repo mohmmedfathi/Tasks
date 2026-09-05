@@ -1,0 +1,90 @@
+[
+  {
+    "model": "books.book",
+    "pk": 1,
+    "fields": {
+      "title": "Learning Python",
+      "author": "Ahmed Hassan",
+      "description": "A simple book for learning Python basics",
+      "content": "Learn the basic concepts of Python with simple examples",
+      "published_date": "2022-03-10"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 2,
+    "fields": {
+      "title": "Django for Beginners",
+      "author": "Mohamed Ali",
+      "description": "An introduction to building backend applications with Django",
+      "content": "Learn how to build a simple backend application using Django",
+      "published_date": "2023-06-15"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 3,
+    "fields": {
+      "title": "Database Basics",
+      "author": "Omar Khaled",
+      "description": "Basic database concepts and SQL examples",
+      "content": "Learn the main database concepts and basic SQL queries",
+      "published_date": "2021-09-20"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 4,
+    "fields": {
+      "title": "Backend Development",
+      "author": "Youssef Ahmed",
+      "description": "A basic guide to backend development",
+      "content": "Learn the basics of backend development and web APIs",
+      "published_date": "2024-01-12"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 5,
+    "fields": {
+      "title": "REST API Guide",
+      "author": "Mahmoud Adel",
+      "description": "Simple examples for building and using REST APIs",
+      "content": "Learn how REST APIs work using simple examples",
+      "published_date": "2023-11-05"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 6,
+    "fields": {
+      "title": "Clean Code Notes",
+      "author": "Mostafa Samir",
+      "description": "Some notes about writing simple and readable code",
+      "content": "Learn how to write simple and readable code",
+      "published_date": "2022-08-18"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 7,
+    "fields": {
+      "title": "Web Development Basics",
+      "author": "Karim Tarek",
+      "description": "An overview of how web applications work",
+      "content": "Learn how web applications communicate between client and server",
+      "published_date": "2021-12-01"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 8,
+    "fields": {
+      "title": "Git and GitHub",
+      "author": "Ali Hossam",
+      "description": "A quick guide for using Git in software projects",
+      "content": "Learn the basic Git commands used in software projects",
+      "published_date": "2024-04-22"
+    }
+  }
+]
