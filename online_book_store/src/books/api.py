@@ -4,13 +4,20 @@ from rest_framework.views import APIView
 
 from .models import Book
 from .serializers import BookDetailSerializer, BookListSerializer
+from config.pagination import BookCursorPagination
 
 
 class BookListView(APIView):
+    pagination_class = BookCursorPagination
+
     def get(self, request):
         # content is the heavy column and the list never shows it
         books = Book.objects.defer("content").order_by("title")
-        return Response(BookListSerializer(books, many=True).data)
+        paginator = self.pagination_class()
+        page = paginator.paginate_queryset(books, request, view=self)
+
+        serializer = BookListSerializer(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
 class BookDetailView(APIView):

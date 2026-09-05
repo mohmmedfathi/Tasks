@@ -104,6 +104,8 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "DEFAULT_PAGINATION_CLASS": "config.pagination.BookStoreCursorPagination",
+    "PAGE_SIZE": env.int("PAGINATION_PAGE_SIZE", default=20),
 }
 
 SIMPLE_JWT = {
