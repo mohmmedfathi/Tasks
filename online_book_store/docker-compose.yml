@@ -20,6 +20,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    # the db may not accept connections yet on the first boot so migrate just retries
+    restart: on-failure
 
 volumes:
   postgres_data:
