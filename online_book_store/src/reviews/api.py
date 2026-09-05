@@ -2,12 +2,15 @@ from django.db import IntegrityError, transaction
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
 from books.models import Book
 from config.pagination import ReviewCursorPagination
 from .models import Review
+from .permissions import IsOwner
 from .serializers import ReviewSerializer
 
 
@@ -39,3 +42,10 @@ class ReviewListCreateView(APIView):
             raise ValidationError({"detail": "you already reviewed this book"})
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class ReviewDetailView(ModelViewSet):
+    queryset = Review.objects.select_related("user")
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated, IsOwner]
+    http_method_names = ["put", "patch", "delete", "options"]
