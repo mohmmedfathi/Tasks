@@ -1,12 +1,18 @@
-from pathlib import Path
+import environ
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = environ.Path(__file__) - 3
+ENV_PATH = str(ROOT_DIR.path(".env"))
+BASE_DIR = ROOT_DIR
 
-SECRET_KEY = "dev-secret-key"
+env = environ.Env()
+if env.bool("READ_ENVFILE", default=True):
+    env.read_env(ENV_PATH)
 
-DEBUG = True
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="dev-secret-key")
 
-ALLOWED_HOSTS = []
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
+
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost"])
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -54,7 +60,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": str(ROOT_DIR.path("db.sqlite3")),
     }
 }
 
