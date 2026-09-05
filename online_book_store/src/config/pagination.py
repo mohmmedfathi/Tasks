@@ -8,3 +8,7 @@ class BookStoreCursorPagination(CursorPagination):
 
 class BookCursorPagination(BookStoreCursorPagination):
     ordering = ("title", "id")
+
+
+class ReviewCursorPagination(BookStoreCursorPagination):
+    ordering = ("-created_at", "-id")
