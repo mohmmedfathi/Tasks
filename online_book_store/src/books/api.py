@@ -1,3 +1,5 @@
+from django.db.models import Avg, Count
+from django.db.models.functions import Round
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,8 +13,14 @@ class BookListView(APIView):
     pagination_class = BookCursorPagination
 
     def get(self, request):
-        # content is the heavy column and the list never shows it
-        books = Book.objects.defer("content").order_by("title")
+        books = (
+            Book.objects.defer("content")
+            .annotate(
+                avg_rating=Round(Avg("reviews__rating"), 1),
+                reviews_count=Count("reviews"),
+            )
+            .order_by("title")
+        )
         paginator = self.pagination_class()
         page = paginator.paginate_queryset(books, request, view=self)
 
@@ -22,5 +30,9 @@ class BookListView(APIView):
 
 class BookDetailView(APIView):
     def get(self, request, pk):
-        book = get_object_or_404(Book, pk=pk)
+        books = Book.objects.annotate(
+            avg_rating=Round(Avg("reviews__rating"), 1),
+            reviews_count=Count("reviews"),
+        )
+        book = get_object_or_404(books, pk=pk)
         return Response(BookDetailSerializer(book).data)
