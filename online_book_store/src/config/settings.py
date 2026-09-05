@@ -57,12 +57,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+POSTGRES_DB = env("POSTGRES_DB", default="book_store")
+POSTGRES_USER = env("POSTGRES_USER", default="bookstore")
+POSTGRES_PASSWORD = env("POSTGRES_PASSWORD", default="bookstore")
+POSTGRES_SERVICE = env("POSTGRES_SERVICE", default="localhost:5433")
+
+DATABASE_URL = (
+    f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}"
+    f"@{POSTGRES_SERVICE}/{POSTGRES_DB}"
+)
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": str(ROOT_DIR.path("db.sqlite3")),
-    }
+    "default": env.db("DATABASE_URL", default=DATABASE_URL),
 }
+DATABASES["default"]["CONN_MAX_AGE"] = env.int("DB_CONN_MAX_AGE", default=30)
+DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
