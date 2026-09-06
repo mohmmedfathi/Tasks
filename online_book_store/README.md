@@ -37,7 +37,6 @@ docker compose exec web python manage.py loaddata books
 The API is available at `http://localhost:8000`
 
 - Swagger UI: `http://localhost:8000/api/docs/`
-- OpenAPI schema: `http://localhost:8000/api/schema/`
 
 ## Run with pip
 
@@ -52,16 +51,6 @@ python manage.py migrate
 python manage.py loaddata books
 python manage.py runserver
 ```
-
-## Run Tests
-
-Install the development dependencies in the running container then run pytest:
-
-```bash
-docker compose exec web uv sync --frozen
-docker compose exec web pytest --cov=. --cov-report=term-missing
-```
-
 ## Endpoints
 
 | Method | Path | Description |
@@ -79,3 +68,14 @@ docker compose exec web pytest --cov=. --cov-report=term-missing
 
 Book and review endpoints require `Authorization: Bearer <access_token>`
 List endpoints accept an optional `limit` query parameter
+
+
+## Run Tests
+
+Install the development dependencies in the running container then run pytest:
+
+```bash
+docker compose exec web uv sync --frozen
+docker compose exec web pytest --cov=. --cov-report=term-missing
+```
+
