@@ -42,6 +42,7 @@ The API is available at `http://localhost:8000`
 | `POST` | `/api/auth/register/` | Register a user |
 | `POST` | `/api/auth/login/` | Get access and refresh tokens |
 | `POST` | `/api/auth/refresh/` | Rotate the refresh token |
+| `POST` | `/api/auth/logout/` | Blacklist a refresh token |
 | `GET` | `/api/books/` | List books |
 | `GET` | `/api/books/{id}/` | Get book details and content |
 | `GET` | `/api/books/{id}/reviews/` | List reviews for a book |
