@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
+
 class Review(models.Model):
     book = models.ForeignKey(
         "books.Book", on_delete=models.CASCADE, related_name="reviews"

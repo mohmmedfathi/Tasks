@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Book
-from .serializers import BookDetailSerializer, BookListSerializer
+from books.models import Book
+from books.serializers import BookDetailSerializer, BookListSerializer
 from config.pagination import BookCursorPagination
 
 

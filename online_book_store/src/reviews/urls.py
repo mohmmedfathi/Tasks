@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .api import ReviewListCreateView, ReviewUpdateDeleteView
+from reviews.api import ReviewListCreateView, ReviewUpdateDeleteView
 
 urlpatterns = [
     path(

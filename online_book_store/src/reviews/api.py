@@ -8,9 +8,9 @@ from rest_framework.response import Response
 
 from books.models import Book
 from config.pagination import ReviewCursorPagination
-from .models import Review
-from .permissions import IsOwner
-from .serializers import ReviewSerializer
+from reviews.models import Review
+from reviews.permissions import IsOwner
+from reviews.serializers import ReviewSerializer
 
 
 class ReviewListCreateView(ListCreateAPIView):
