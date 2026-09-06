@@ -19,7 +19,6 @@ class BookListView(APIView):
                 avg_rating=Round(Avg("reviews__rating"), 1),
                 reviews_count=Count("reviews"),
             )
-            .order_by("title")
         )
         paginator = self.pagination_class()
         page = paginator.paginate_queryset(books, request, view=self)

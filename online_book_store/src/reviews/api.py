@@ -23,9 +23,7 @@ class ReviewListCreateView(ListCreateAPIView):
                 book=get_object_or_404(
                     Book.objects.only("pk"), pk=self.kwargs["book_id"]
                 )
-            )
-            .select_related("user")
-            .order_by("-created_at", "-id")
+            ).select_related("user")
         )
 
     def create(self, request, *args, **kwargs):
