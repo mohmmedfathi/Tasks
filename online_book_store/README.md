@@ -1,7 +1,5 @@
 # Online Book Store
 
-A Django REST API where users can register then read books and write reviews
-
 ## Design Decisions
 
 - **Authentication:** SimpleJWT handles login and token refresh. Refresh tokens
@@ -40,6 +38,20 @@ The API is available at `http://localhost:8000`
 
 - Swagger UI: `http://localhost:8000/api/docs/`
 - OpenAPI schema: `http://localhost:8000/api/schema/`
+
+## Run with pip
+
+Start only PostgreSQL in Docker and run Django on your machine:
+
+```bash
+docker compose up -d db
+cp .env.example .env
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py loaddata books
+python manage.py runserver
+```
 
 ## Run Tests
 
