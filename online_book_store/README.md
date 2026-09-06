@@ -16,6 +16,8 @@ A Django REST API where users can register then read books and write reviews
 - **Query performance:** Book lists do not load the large content field. Review
   statistics are calculated by PostgreSQL. Review queries load users in the same
   query to avoid extra database calls
+- **API documentation:** drf-spectacular generates the OpenAPI schema and
+  Swagger UI
 
 ## Run the Project
 
@@ -34,6 +36,9 @@ docker compose exec web python manage.py loaddata books
 ```
 
 The API is available at `http://localhost:8000`
+
+- Swagger UI: `http://localhost:8000/api/docs/`
+- OpenAPI schema: `http://localhost:8000/api/schema/`
 
 ## Endpoints
 
