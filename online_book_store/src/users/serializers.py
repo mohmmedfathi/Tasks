@@ -11,15 +11,14 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "email", "password"]
-        read_only_fields = ["id"]
 
     def validate(self, attrs):
         # throwaway user so the similarity check can see the username
-        user = User(username=attrs["username"], email=attrs.get("email", ""))
+        user = User(username=attrs["username"], email=attrs["email"])
         try:
             validate_password(attrs["password"], user)
         except DjangoValidationError as e:
-            raise serializers.ValidationError({"password": e.messages})
+            raise serializers.ValidationError({"password": e.messages}) from e
         return attrs
 
     # create_user hashes the password, a plain create would store it as text
