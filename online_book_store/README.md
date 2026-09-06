@@ -1,5 +1,3 @@
-# Online Book Store
-
 ## Design Decisions
 
 - **Authentication:** SimpleJWT handles login and token refresh. Refresh tokens
@@ -79,3 +77,4 @@ docker compose exec web uv sync --frozen
 docker compose exec web pytest --cov=. --cov-report=term-missing
 ```
 
+<img width="1087" height="667" alt="Image" src="https://github.com/user-attachments/assets/b04638c3-6d1b-4fdc-80f5-4449d88ab257" />
